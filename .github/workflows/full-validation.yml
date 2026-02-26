@@ -68,20 +68,11 @@ jobs:
 
       - name: Run GPU smoke (report mode)
         run: |
-          python scripts/phase10/gpu_smoke_matrix.py \
-            --backends all \
-            --include-planning \
-            --json-out bench/results/phase10_gpu_smoke_${{ runner.os }}.json
+          python scripts/phase10/gpu_smoke_matrix.py --backends all --include-planning --json-out bench/results/phase10_gpu_smoke_${{ runner.os }}.json
 
       - name: Run platform matrix (no build probe)
         run: |
-          python scripts/phase10/platform_matrix.py \
-            --preset market \
-            --include-experimental \
-            --include-embedded \
-            --include-gpu-experimental \
-            --include-gpu-planning \
-            --json-out bench/results/phase10_platform_matrix_${{ runner.os }}.json
+          python scripts/phase10/platform_matrix.py --preset market --include-experimental --include-embedded --include-gpu-experimental --include-gpu-planning --json-out bench/results/phase10_platform_matrix_${{ runner.os }}.json
 
       - name: Upload portability reports
         if: always()
