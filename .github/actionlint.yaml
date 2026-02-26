@@ -1,0 +1,15 @@
+self-hosted-runner:
+  labels:
+    - gpu
+    - cuda
+    - rocm
+    - oneapi
+    - opencl
+    - vulkan
+    - metal
+    - amd
+    - nvidia
+    - intel
+    - mac
+    - linux
+    - windows
