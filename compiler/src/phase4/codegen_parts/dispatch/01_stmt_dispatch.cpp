@@ -1,5 +1,3 @@
-#include <array>
-
 bool CodeGenerator::dispatch_stmt(const Stmt& stmt, FunctionContext& ctx) {
   constexpr std::array<StmtCodegenHandler, static_cast<std::size_t>(Stmt::Kind::WithTaskGroup) + 1> handlers{
       &CodeGenerator::compile_stmt_expression,

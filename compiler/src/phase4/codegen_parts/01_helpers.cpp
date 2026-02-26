@@ -1,5 +1,6 @@
 #include <iomanip>
 #include <numeric>
+#include <array>
 #include <algorithm>
 #include <cctype>
 #include <unordered_set>
