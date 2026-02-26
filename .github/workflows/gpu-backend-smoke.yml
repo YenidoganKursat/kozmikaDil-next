@@ -33,7 +33,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
       - name: Prepare CUDA infra
@@ -58,7 +58,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
       - name: Prepare ROCm infra
@@ -83,7 +83,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
       - name: Prepare oneAPI infra
@@ -108,7 +108,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
       - name: Prepare oneAPI infra
@@ -133,7 +133,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
       - name: Prepare OpenCL infra
@@ -158,7 +158,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
       - name: Prepare OpenCL infra
@@ -183,7 +183,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
       - name: Prepare CUDA infra
@@ -208,7 +208,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
       - name: Prepare Vulkan infra
@@ -233,7 +233,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
       - name: Prepare Vulkan infra
@@ -258,7 +258,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
       - name: Prepare Metal infra
