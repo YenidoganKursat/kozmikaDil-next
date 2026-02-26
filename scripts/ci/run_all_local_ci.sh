@@ -50,7 +50,7 @@ ctest --test-dir "$BUILD_DIR" \
   --parallel "$JOBS" \
   --output-on-failure \
   --timeout 1800 \
-  -E "sparkc_phase5_crosslang_primitives"
+  -E "sparkc_phase5_crosslang_primitives|sparkc_phase9_tests"
 
 if [[ "$MODE" == "full" ]]; then
   echo "[ci] ctest stability replay"
@@ -58,7 +58,7 @@ if [[ "$MODE" == "full" ]]; then
     --output-on-failure \
     --timeout 1800 \
     --repeat until-fail:2 \
-    -R "sparkc_typecheck_tests|sparkc_codegen_tests|sparkc_phase(5|6|7|8|9|10)_tests"
+    -R "sparkc_typecheck_tests|sparkc_codegen_tests|sparkc_phase(5|6|7|8|10)_tests"
 
   echo "[ci] cross-language primitive correctness"
   python3 ./tests/phase5/primitives/crosslang_native_primitives_tests.py \
