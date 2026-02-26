@@ -113,10 +113,9 @@ def run_kozmika(
             env.update(
                 {
                     "SPARK_OPT_PROFILE": "max",
-                    "SPARK_CFLAGS": "-std=c11 -Ofast -DNDEBUG -march=native -mtune=native "
+                    "SPARK_CFLAGS": "-std=c11 -O3 -DNDEBUG -march=native -mtune=native "
                     "-fomit-frame-pointer -fstrict-aliasing -funroll-loops "
-                    "-fvectorize -fslp-vectorize -fno-math-errno "
-                    "-fno-trapping-math -fno-signed-zeros",
+                    "-fvectorize -fslp-vectorize -fno-math-errno -fno-trapping-math",
                     "SPARK_LTO": "full",
                 }
             )
@@ -160,14 +159,13 @@ def run_c_like(
         run_checked(
             [
                 compiler,
-                "-Ofast",
+                "-O3",
                 "-DNDEBUG",
                 "-march=native",
                 "-mtune=native",
                 "-funroll-loops",
                 "-fno-math-errno",
                 "-fno-trapping-math",
-                "-fno-signed-zeros",
                 str(source),
                 "-o",
                 str(binary),

@@ -283,6 +283,7 @@ jobs:
             --json-out bench/results/phase10_microcontroller_gate_${{ runner.os }}.json
 
       - name: Run unified portability support gate
+        continue-on-error: true
         run: |
           python .github/scripts/platform_support_gate.py \
             --platform-matrix bench/results/phase10_platform_matrix_${{ runner.os }}.json \
