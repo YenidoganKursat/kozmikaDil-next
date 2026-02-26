@@ -1,0 +1,94 @@
+name: Full Validation
+
+on:
+  push:
+    branches: [ "master", "main", "codex/**" ]
+  pull_request:
+    branches: [ "master", "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: full-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  linux-full-validation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install toolchain
+        run: |
+          sudo apt-get -o Acquire::Retries=3 update
+          sudo apt-get -o Acquire::Retries=3 install -y \
+            cmake ninja-build clang g++ make python3 python3-pip libmpfr-dev libgmp-dev default-jdk
+
+      - name: Run unified local CI (full mode)
+        run: bash scripts/ci/run_all_local_ci.sh --mode full --jobs 4
+
+      - name: Upload validation artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: full-validation-linux-artifacts
+          path: |
+            bench/results/phase10_platform_matrix_local.json
+            bench/results/phase10_gpu_smoke_local.json
+            build/Testing/Temporary/LastTest.log
+          if-no-files-found: warn
+
+  host-portability-smoke:
+    name: Host portability smoke (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Compile-check critical phase10 scripts
+        run: |
+          python -m py_compile scripts/phase10/platform_matrix.py
+          python -m py_compile scripts/phase10/gpu_smoke_matrix.py
+          python -m py_compile scripts/phase10/target_catalog.py
+          python -m py_compile scripts/phase10/gpu_backend_catalog.py
+
+      - name: Run GPU smoke (report mode)
+        run: |
+          python scripts/phase10/gpu_smoke_matrix.py \
+            --backends all \
+            --include-planning \
+            --json-out bench/results/phase10_gpu_smoke_${{ runner.os }}.json
+
+      - name: Run platform matrix (no build probe)
+        run: |
+          python scripts/phase10/platform_matrix.py \
+            --preset market \
+            --include-experimental \
+            --include-embedded \
+            --include-gpu-experimental \
+            --include-gpu-planning \
+            --json-out bench/results/phase10_platform_matrix_${{ runner.os }}.json
+
+      - name: Upload portability reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: portability-smoke-${{ runner.os }}
+          path: |
+            bench/results/phase10_gpu_smoke_${{ runner.os }}.json
+            bench/results/phase10_platform_matrix_${{ runner.os }}.json
+          if-no-files-found: warn

@@ -1,0 +1,5 @@
+atoms:
+  - source_id
+  - file_path
+  - source_text
+  - diagnostic_message
