@@ -33,7 +33,7 @@ jobs:
 
       - name: Upload validation artifacts
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: full-validation-linux-artifacts
           path: |
@@ -76,7 +76,7 @@ jobs:
 
       - name: Upload portability reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: portability-smoke-${{ runner.os }}
           path: |
